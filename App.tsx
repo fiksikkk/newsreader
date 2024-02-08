@@ -1,41 +1,34 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {ApolloProvider, gql, useQuery} from '@apollo/client';
+import * as React from 'react';
+import {ApolloProvider} from '@apollo/client';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {apolloClient} from './apolloClient';
+import {apolloClient} from './src/apollo/apolloClient';
 
-const GET_POSTS = gql`
-  query {
-    characters(page: 2, filter: {name: "rick"}) {
-      results {
-        name
-      }
-    }
-  }
-`;
+import {HomeScreen} from './src/screens/HomeScreen';
+import {CharacterScreen} from './src/screens/CharacterScreen';
 
-function App(): React.JSX.Element {
+const Stack = createNativeStackNavigator();
+
+const App = (): React.JSX.Element => {
   return (
     <ApolloProvider client={apolloClient}>
-      <View>
-        <Text>All works</Text>
-        <DisplayLocations />
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{title: 'Home'}}
+          />
+          <Stack.Screen
+            name="Character"
+            component={CharacterScreen}
+            options={{title: 'About'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </ApolloProvider>
   );
-}
-
-const styles = StyleSheet.create({});
+};
 
 export default App;
-
-function DisplayLocations() {
-  const {loading, error, data} = useQuery(GET_POSTS);
-
-  if (loading) return <Text>Loading...</Text>;
-  if (error) return <Text>Error : {error.message}</Text>;
-
-  return data.characters.results.map(({name}: {name: string}) => (
-    <Text>{name}</Text>
-  ));
-}
