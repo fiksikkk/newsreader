@@ -1,20 +1,6 @@
-import {useQuery, gql} from '@apollo/client';
+import {useQuery} from '@apollo/client';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-
-const GET_POSTS = gql`
-  query {
-    characters {
-      info {
-        count
-      }
-      results {
-        id
-        name
-        image
-      }
-    }
-  }
-`;
+import {GET_POSTS} from './gql/gql';
 
 const styles = StyleSheet.create({
   image: {

@@ -1,20 +1,6 @@
-import {gql, useQuery} from '@apollo/client';
+import {useQuery} from '@apollo/client';
 import {Image, StyleSheet, Text, View} from 'react-native';
-
-const GET_CHARACTER = (id: number) => {
-  return gql`
-  query {
-    character(id: ${id}) {
-      name
-      status
-      species
-      type
-      gender
-      image
-    }      
-  }
-`;
-};
+import {GET_CHARACTER} from '../gql/gql';
 
 export const CharacterScreen = ({navigation, route}: any) => {
   const {loading, error, data} = useQuery(GET_CHARACTER(route.params.id));
@@ -49,21 +35,3 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
 });
-
-// {
-//   name,
-//   status,
-//   species,
-//   type,
-//   gender,
-//   image,
-//   id,
-// }: {
-//   name: string;
-//   status: string;
-//   species: string;
-//   type: string;
-//   gender: string;
-//   image: string;
-//   id: number;
-// }
