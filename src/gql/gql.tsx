@@ -15,7 +15,7 @@ export const GET_POSTS = gql`
   }
 `;
 
-export const GET_CHARACTER = (id: number) => {
+export const GET_CHARACTER = (id: number | string) => {
   return gql`
     query {
       character(id: ${id}) {

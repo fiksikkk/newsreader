@@ -29,7 +29,7 @@ const DisplayPosts = ({navigation}: any) => {
     ({name, image, id}: {name: string; image: string; id: number}) => (
       <View style={styles.container} key={id}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Character', {id: id})}>
+          onPress={() => navigation.navigate('Character', {userid: id})}>
           <Image style={styles.image} src={image} />
           <Text style={styles.name}>{name}</Text>
         </TouchableOpacity>

@@ -1,20 +1,23 @@
 import * as React from 'react';
-import {ApolloProvider} from '@apollo/client';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+import {ApolloProvider} from '@apollo/client';
 import {apolloClient} from './src/apollo/apolloClient';
 
 import {HomeScreen} from './src/screens/HomeScreen';
 import {CharacterScreen} from './src/screens/CharacterScreen';
 
-const Stack = createNativeStackNavigator();
+import {StackParamList} from './src/types';
+
+const Stack = createNativeStackNavigator<StackParamList>();
 
 const App = (): React.JSX.Element => {
   return (
     <ApolloProvider client={apolloClient}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
             component={HomeScreen}

@@ -1,5 +1,6 @@
 import DisplayPosts from '../displayPosts';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {HomeProps} from '../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +9,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const HomeScreen = ({navigation}: any) => {
+export const HomeScreen = ({navigation}: HomeProps) => {
   return (
     <SafeAreaView>
       <ScrollView>
