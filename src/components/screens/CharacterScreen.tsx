@@ -1,9 +1,9 @@
 import {useQuery} from '@apollo/client';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {GET_CHARACTER} from '../gql/gql';
-import {CharacterProps} from '../types';
+import {GET_CHARACTER} from '../../gql/gql';
+import {CharacterProps} from '../../types/types';
 
-export const CharacterScreen = ({navigation, route}: CharacterProps) => {
+const CharacterScreen = ({navigation, route}: CharacterProps) => {
   const {loading, error, data} = useQuery(GET_CHARACTER(route.params.userid));
 
   if (loading) return <Text>Loading...</Text>;
@@ -36,3 +36,5 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
 });
+
+export default CharacterScreen;
