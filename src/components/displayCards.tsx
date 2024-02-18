@@ -8,7 +8,7 @@ const DisplayCards = ({
   data: any;
 }) => {
   return (
-    <View style={styles.box}>
+    <View testID="container" style={styles.box}>
       {data.characters.results.map(
         ({name, image, id}: {name: string; image: string; id: number}) => (
           <View style={styles.container} key={id}>
