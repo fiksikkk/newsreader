@@ -1,4 +1,5 @@
 import {View, Button, Text, StyleSheet} from 'react-native';
+import {Characters} from '../types/types';
 
 const Pagination = ({
   setPage,
@@ -7,7 +8,7 @@ const Pagination = ({
 }: {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   page: number;
-  data: any;
+  data: Characters;
 }) => {
   return (
     <View style={styles.container}>

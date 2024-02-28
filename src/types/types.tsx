@@ -11,12 +11,18 @@ export type CharacterProps = NativeStackScreenProps<
   'Character'
 >;
 
-export interface Character {
+interface Character {
   name: string;
   image: string;
   id: number;
 }
 
+interface Info {
+  next: number;
+  prev: number;
+  pages: number;
+}
+
 export interface Characters {
-  characters: {results: Character[]};
+  characters: {results: Character[]; info: Info};
 }
