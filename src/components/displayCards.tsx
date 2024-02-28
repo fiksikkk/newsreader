@@ -1,29 +1,28 @@
 import {View, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
+import {Characters} from '../types/types';
 
 const DisplayCards = ({
   viewCharacter,
   data,
 }: {
   viewCharacter: Function;
-  data: any;
+  data: Characters;
 }) => {
   return (
     <View testID="container" style={styles.box}>
-      {data.characters.results.map(
-        ({name, image, id}: {name: string; image: string; id: number}) => (
-          <View style={styles.container} key={id}>
-            <TouchableOpacity
-              onPress={() => {
-                viewCharacter(id);
-              }}>
-              <Image style={styles.image} src={image} />
-              <Text numberOfLines={1} style={styles.name}>
-                {name}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        ),
-      )}
+      {data.characters.results.map(({name, image, id}) => (
+        <View style={styles.container} key={id}>
+          <TouchableOpacity
+            onPress={() => {
+              viewCharacter(id);
+            }}>
+            <Image style={styles.image} src={image} />
+            <Text numberOfLines={1} style={styles.name}>
+              {name}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ))}
     </View>
   );
 };

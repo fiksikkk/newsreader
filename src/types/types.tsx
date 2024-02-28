@@ -10,3 +10,13 @@ export type CharacterProps = NativeStackScreenProps<
   StackParamList,
   'Character'
 >;
+
+export interface Character {
+  name: string;
+  image: string;
+  id: number;
+}
+
+export interface Characters {
+  characters: {results: Character[]};
+}
