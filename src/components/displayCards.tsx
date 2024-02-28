@@ -5,7 +5,7 @@ const DisplayCards = ({
   viewCharacter,
   data,
 }: {
-  viewCharacter: Function;
+  viewCharacter: (id: number) => void;
   data: Characters;
 }) => {
   return (
