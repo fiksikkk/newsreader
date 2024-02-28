@@ -2,13 +2,13 @@ import {SafeAreaView, ScrollView, Text} from 'react-native';
 import {useState} from 'react';
 
 import {useQuery} from '@apollo/client';
-import {GET_POSTS} from '../../gql/gql';
+import {GET_POSTS} from '../gql/gql';
 
-import {HomeProps} from '../../types/types';
+import {HomeProps} from '../types/types';
 
-import Pagination from '../pagination';
-import Header from '../header';
-import DisplayCards from '../displayCards';
+import Pagination from '../components/pagination';
+import Header from '../components/header';
+import DisplayCards from '../components/displayCards';
 
 const HomeScreen = ({navigation}: HomeProps) => {
   const [page, setPage] = useState(1);

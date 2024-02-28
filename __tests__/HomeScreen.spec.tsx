@@ -2,7 +2,7 @@ import React from 'react';
 import {render, waitFor} from '@testing-library/react-native';
 import {MockedProvider} from '@apollo/client/testing';
 import {GET_POSTS} from '../src/gql/gql';
-import HomeScreen from '../src/components/screens/HomeScreen';
+import HomeScreen from '../src/screens/HomeScreen';
 
 describe('Should render HomeScreen', () => {
   const navigation = {navigate: () => {}};

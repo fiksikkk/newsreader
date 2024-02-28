@@ -6,8 +6,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ApolloProvider} from '@apollo/client';
 import {apolloClient} from './src/apollo/apolloClient';
 
-import HomeScreen from './src/components/screens/HomeScreen';
-import CharacterScreen from './src/components/screens/CharacterScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import CharacterScreen from './src/screens/CharacterScreen';
 
 import {StackParamList} from './src/types/types';
 
