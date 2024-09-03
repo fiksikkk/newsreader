@@ -11,7 +11,7 @@ export type CharacterProps = NativeStackScreenProps<
   'Character'
 >;
 
-interface Character {
+export interface Character {
   name: string;
   image: string;
   id: number;
