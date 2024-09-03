@@ -1,13 +1,15 @@
+import React from 'react';
+
 import {View, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
+
 import {Characters} from '../types/types';
 
-const DisplayCards = ({
-  viewCharacter,
-  data,
-}: {
+interface DisplayCardsProps {
   viewCharacter: (id: number) => void;
   data: Characters;
-}) => {
+}
+
+const DisplayCards = ({viewCharacter, data}: DisplayCardsProps) => {
   return (
     <View testID="container" style={styles.box}>
       {data.characters.results.map(({name, image, id}) => (
