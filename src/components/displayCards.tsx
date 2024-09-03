@@ -1,30 +1,52 @@
 import React from 'react';
 
-import {View, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
 
-import {Characters} from '../types/types';
+import {Character, Characters} from '../types/types';
 
 interface DisplayCardsProps {
   viewCharacter: (id: number) => void;
   data: Characters;
 }
 
+type ItemProps = {
+  item: Character;
+  onPress: (id: number) => void;
+};
+
+const Item = ({item, onPress}: ItemProps) => (
+  <View style={styles.container} key={item.id}>
+    <TouchableOpacity
+      onPress={() => {
+        onPress(item.id);
+      }}>
+      <Image style={styles.image} src={item.image} />
+      <Text numberOfLines={1} style={styles.name}>
+        {item.name}
+      </Text>
+    </TouchableOpacity>
+  </View>
+);
+
 const DisplayCards = ({viewCharacter, data}: DisplayCardsProps) => {
+  const renderItem = ({item}: {item: Character}) => {
+    return <Item item={item} onPress={() => viewCharacter(item.id)} />;
+  };
+
   return (
     <View testID="container" style={styles.box}>
-      {data.characters.results.map(({name, image, id}) => (
-        <View style={styles.container} key={id}>
-          <TouchableOpacity
-            onPress={() => {
-              viewCharacter(id);
-            }}>
-            <Image style={styles.image} src={image} />
-            <Text numberOfLines={1} style={styles.name}>
-              {name}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      ))}
+      <FlatList
+        data={data.characters.results}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+      />
     </View>
   );
 };
@@ -46,6 +68,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 24,
     width: 200,
+    color: 'black',
   },
   box: {
     flexDirection: 'column',
