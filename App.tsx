@@ -1,14 +1,12 @@
 import * as React from 'react';
 
+import {ApolloProvider} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {ApolloProvider} from '@apollo/client';
 import {apolloClient} from './src/apollo/apolloClient';
-
-import HomeScreen from './src/screens/HomeScreen';
 import CharacterScreen from './src/screens/CharacterScreen';
-
+import HomeScreen from './src/screens/HomeScreen';
 import {StackParamList} from './src/types/types';
 
 const Stack = createNativeStackNavigator<StackParamList>();

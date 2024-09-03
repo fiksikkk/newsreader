@@ -1,14 +1,14 @@
-import {SafeAreaView, ScrollView, Text} from 'react-native';
+import React from 'react';
 import {useState} from 'react';
 
 import {useQuery} from '@apollo/client';
-import {GET_POSTS} from '../gql/gql';
+import {SafeAreaView, ScrollView, Text} from 'react-native';
 
-import {HomeProps} from '../types/types';
-
-import Pagination from '../components/pagination';
-import Header from '../components/header';
 import DisplayCards from '../components/displayCards';
+import Header from '../components/header';
+import Pagination from '../components/pagination';
+import {GET_POSTS} from '../gql/gql';
+import {HomeProps} from '../types/types';
 
 const HomeScreen = ({navigation}: HomeProps) => {
   const [page, setPage] = useState(1);
@@ -19,8 +19,12 @@ const HomeScreen = ({navigation}: HomeProps) => {
 
   const {loading, error, data} = useQuery(GET_POSTS(page));
 
-  if (loading) return <Text testID="progress">Loading...</Text>;
-  if (error) return <Text testID="error">Error : {error.message}</Text>;
+  if (loading) {
+    return <Text testID="progress">Loading...</Text>;
+  }
+  if (error) {
+    return <Text testID="error">Error : {error.message}</Text>;
+  }
 
   return (
     <SafeAreaView>
