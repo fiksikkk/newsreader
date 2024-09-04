@@ -9,7 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 
-import {Character, Characters} from '../types/types';
+import { Character, Characters } from '../types/types';
 
 interface DisplayCardsProps {
   viewCharacter: (id: number) => void;
@@ -21,8 +21,8 @@ type ItemProps = {
   onPress: (id: number) => void;
 };
 
-const Item = ({item, onPress}: ItemProps) => (
-  <View style={styles.container} key={item.id}>
+const Item = ({ item, onPress }: ItemProps) => (
+  <View testID='card' style={styles.container} key={item.id}>
     <TouchableOpacity
       onPress={() => {
         onPress(item.id);
@@ -35,19 +35,19 @@ const Item = ({item, onPress}: ItemProps) => (
   </View>
 );
 
-const DisplayCards = ({viewCharacter, data}: DisplayCardsProps) => {
-  const renderItem = ({item}: {item: Character}) => {
+const DisplayCards = ({ viewCharacter, data }: DisplayCardsProps) => {
+  const renderItem = ({ item }: { item: Character }) => {
     return <Item item={item} onPress={() => viewCharacter(item.id)} />;
   };
 
   return (
-    <View testID="container" style={styles.box}>
-      <FlatList
-        data={data.characters.results}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-      />
-    </View>
+    <FlatList
+      contentContainerStyle={styles.box}
+      testID="container"
+      data={data.characters.results}
+      renderItem={renderItem}
+      keyExtractor={item => item.id.toString()}
+    />
   );
 };
 
