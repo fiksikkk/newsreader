@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render CharacterScreen Should render a cards when loading is done 1`] = `
+<View
+  style={
+    {
+      "flexDirection": "column",
+      "margin": 10,
+      "padding": 25,
+    }
+  }
+  testID="container"
+>
+  <Image
+    src="https://rickandmortyapi.com/api/character/avatar/7.jpeg"
+    style={
+      {
+        "height": 350,
+        "width": 350,
+      }
+    }
+  />
+  <Text
+    style={
+      {
+        "color": "black",
+        "fontSize": 24,
+      }
+    }
+  >
+    Name: 
+    Abradolf Lincler
+  </Text>
+  <Text
+    style={
+      {
+        "color": "black",
+        "fontSize": 24,
+      }
+    }
+  >
+    Gender: 
+    Male
+  </Text>
+  <Text
+    style={
+      {
+        "color": "black",
+        "fontSize": 24,
+      }
+    }
+  >
+    Status: 
+    unknown
+  </Text>
+  <Text
+    style={
+      {
+        "color": "black",
+        "fontSize": 24,
+      }
+    }
+  >
+    Species: 
+    Human
+  </Text>
+  <Text
+    style={
+      {
+        "color": "black",
+        "fontSize": 24,
+      }
+    }
+  >
+    Type: 
+    Genetic experiment
+  </Text>
+</View>
+`;

@@ -10,14 +10,14 @@ const CharacterScreen = ({route}: CharacterProps) => {
   const {loading, error, data} = useQuery(GET_CHARACTER(route.params.userid));
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <Text testID='progress'>Loading...</Text>;
   }
   if (error) {
-    return <Text>Error : {error.message}</Text>;
+    return <Text testID='error'>Error : {error.message}</Text>;
   }
 
   return (
-    <View style={styles.container} key={data.character.id}>
+    <View testID='container' style={styles.container} key={data.character.id}>
       <Image style={styles.image} src={data.character.image} />
       <Text style={styles.name}>Name: {data.character.name}</Text>
       <Text style={styles.name}>Gender: {data.character.gender}</Text>
