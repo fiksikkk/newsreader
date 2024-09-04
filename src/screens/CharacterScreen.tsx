@@ -16,14 +16,15 @@ const CharacterScreen = ({route}: CharacterProps) => {
     return <Text testID='error'>Error : {error.message}</Text>;
   }
 
+  const {image, name, gender, status, species, type} = data.character;
   return (
     <View testID='container' style={styles.container} key={data.character.id}>
-      <Image style={styles.image} src={data.character.image} />
-      <Text style={styles.name}>Name: {data.character.name}</Text>
-      <Text style={styles.name}>Gender: {data.character.gender}</Text>
-      <Text style={styles.name}>Status: {data.character.status}</Text>
-      <Text style={styles.name}>Species: {data.character.species}</Text>
-      <Text style={styles.name}>Type: {data.character.type}</Text>
+      <Image style={styles.image} src={image} />
+      <Text style={styles.name}>Name: {name}</Text>
+      <Text style={styles.name}>Gender: {gender}</Text>
+      <Text style={styles.name}>Status: {status}</Text>
+      <Text style={styles.name}>Species: {species}</Text>
+      <Text style={styles.name}>Type: {type}</Text>
     </View>
   );
 };
