@@ -1,14 +1,15 @@
 import React from 'react';
 
-import {useQuery} from '@apollo/client';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { useQuery } from '@apollo/client';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-import {GET_CHARACTER} from '../gql/gql';
-import {CharacterProps} from '../types/types';
+import { GET_CHARACTER } from '../gql/gql';
+import { CharacterProps } from '../types/types';
 
-const CharacterScreen = ({route}: CharacterProps) => {
-  const {loading, error, data} = useQuery(GET_CHARACTER(route.params.userid));
-
+const CharacterScreen = ({ route }: CharacterProps) => {
+  const { loading, error, data } = useQuery(GET_CHARACTER,
+    { variables: { id: route.params.userid } });
+  console.log(loading, error, data)
   if (loading) {
     return <Text testID='progress'>Loading...</Text>;
   }
@@ -16,9 +17,9 @@ const CharacterScreen = ({route}: CharacterProps) => {
     return <Text testID='error'>Error : {error.message}</Text>;
   }
 
-  const {image, name, gender, status, species, type} = data.character;
+  const { image, name, gender, status, species, type, id } = data.character;
   return (
-    <View testID='container' style={styles.container} key={data.character.id}>
+    <View testID='container' style={styles.container} key={id}>
       <Image style={styles.image} src={image} />
       <Text style={styles.name}>Name: {name}</Text>
       <Text style={styles.name}>Gender: {gender}</Text>

@@ -1,45 +1,43 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 
-import {useQuery} from '@apollo/client';
-import {SafeAreaView, ScrollView, Text} from 'react-native';
+import { useQuery } from '@apollo/client';
+import { SafeAreaView, ScrollView, Text } from 'react-native';
 
 import DisplayCards from '../components/displayCards';
 import Header from '../components/header';
-import Pagination from '../components/pagination';
-import {GET_POSTS} from '../gql/gql';
-import {HomeProps} from '../types/types';
+import { GET_POSTS } from '../gql/gql';
+import { Characters, GetPostsVariables, HomeProps } from '../types/types';
 
-const HomeScreen = ({navigation}: HomeProps) => {
-  const [page, setPage] = useState(1);
+const HomeScreen = ({ navigation }: HomeProps) => {
+  const [page] = useState(1);
 
   const viewCharacter = (id: number) => {
-    navigation.navigate('Character', {userid: id});
+    navigation.navigate('Character', { userid: id });
   };
 
-  const {loading, error, data} = useQuery(GET_POSTS(page));
+  const { loading, error, data, fetchMore } = useQuery<Characters, GetPostsVariables>(GET_POSTS,
+    { variables: { page }, notifyOnNetworkStatusChange: true });
 
-  if (loading) {
+  if (!data && loading) {
     return <Text testID="progress">Loading...</Text>;
   }
   if (error) {
     return <Text testID="error">Error : {error.message}</Text>;
   }
+  if (!data) {
+    return <Text>Sorry, there is no data to show  </Text>
+  }
 
   return (
     <SafeAreaView>
-      <ScrollView>
-        <Header
-          count={data.characters.info.count}
-          results={data.characters.results}
-        />
+      <Header
+        count={data.characters.info.count}
+        results={data.characters.results}
+      />
 
-        <Pagination setPage={setPage} page={page} data={data} />
+      <DisplayCards viewCharacter={viewCharacter} data={data} fetchMore={fetchMore} loading={loading} />
 
-        <DisplayCards viewCharacter={viewCharacter} data={data} />
-
-        <Pagination setPage={setPage} page={page} data={data} />
-      </ScrollView>
     </SafeAreaView>
   );
 };

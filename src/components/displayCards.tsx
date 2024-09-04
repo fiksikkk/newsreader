@@ -9,11 +9,14 @@ import {
   FlatList,
 } from 'react-native';
 
-import { Character, Characters } from '../types/types';
+import { Character, Characters, GetPostsVariables } from '../types/types';
+import { FetchMoreFunction } from '@apollo/client/react/hooks/useSuspenseQuery';
 
 interface DisplayCardsProps {
   viewCharacter: (id: number) => void;
   data: Characters;
+  fetchMore: FetchMoreFunction<Characters, GetPostsVariables>;
+  loading: boolean;
 }
 
 type ItemProps = {
@@ -35,11 +38,33 @@ const Item = ({ item, onPress }: ItemProps) => (
   </View>
 );
 
-const DisplayCards = ({ viewCharacter, data }: DisplayCardsProps) => {
+const handleOnEndReached = (data: Characters, fetchMore: FetchMoreFunction<Characters, GetPostsVariables> ) => () => {
+
+  if (data.characters.info.next)
+    return fetchMore({
+      variables: {
+        page: data.characters.info.next
+      },
+      updateQuery: onUpdate,
+    })
+}
+
+const onUpdate = (prev: Characters, { fetchMoreResult }: any) => {
+  const results = [
+    ...prev.characters.results,
+    ...fetchMoreResult.characters.results
+  ]
+  const newData = {
+    characters: { ...fetchMoreResult.characters, results }
+  }
+
+  return newData;
+}
+
+const DisplayCards = ({ viewCharacter, data, fetchMore, loading }: DisplayCardsProps) => {
   const renderItem = ({ item }: { item: Character }) => {
     return <Item item={item} onPress={() => viewCharacter(item.id)} />;
   };
-
   return (
     <FlatList
       contentContainerStyle={styles.box}
@@ -50,6 +75,9 @@ const DisplayCards = ({ viewCharacter, data }: DisplayCardsProps) => {
       getItemLayout={(data, index) => (
         { length: 300, offset: 300 * index, index }
       )}
+      onEndReachedThreshold={0.5}
+      onEndReached={handleOnEndReached(data, fetchMore)}
+      ListFooterComponent={loading ? <Text testID="progress">Loading...</Text> : null}
     />
   );
 };
@@ -77,6 +105,7 @@ const styles = StyleSheet.create({
   box: {
     flexDirection: 'column',
     alignItems: 'center',
+    paddingBottom: 200
   },
 });
 

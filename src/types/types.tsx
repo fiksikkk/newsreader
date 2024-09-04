@@ -17,12 +17,21 @@ export interface Character {
   id: number;
 }
 
+export interface FullCharacter extends Character {
+
+}
+
 interface Info {
   next: number;
   prev: number;
   pages: number;
+  count: number;
 }
 
 export interface Characters {
   characters: {results: Character[]; info: Info};
+}
+
+export interface GetPostsVariables {
+  page: number
 }

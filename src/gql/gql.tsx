@@ -1,9 +1,8 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 
-export const GET_POSTS = (page: number | string) => {
-  return gql`
-    query {
-      characters(page: ${page}) {
+export const GET_POSTS = gql`
+    query Posts($page: Int){
+      characters(page: $page) {
         info {
           count
           next
@@ -18,12 +17,10 @@ export const GET_POSTS = (page: number | string) => {
       }
     }
   `;
-};
 
-export const GET_CHARACTER = (id: number | string) => {
-  return gql`
-    query {
-      character(id: ${id}) {
+export const GET_CHARACTER = gql`
+    query Character($id: ID!){
+      character(id: $id) {
         name
         status
         species
@@ -33,4 +30,6 @@ export const GET_CHARACTER = (id: number | string) => {
       }      
     }
   `;
-};
+  
+
+
