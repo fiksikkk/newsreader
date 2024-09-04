@@ -47,6 +47,9 @@ const DisplayCards = ({ viewCharacter, data }: DisplayCardsProps) => {
       data={data.characters.results}
       renderItem={renderItem}
       keyExtractor={item => item.id.toString()}
+      getItemLayout={(data, index) => (
+        { length: 300, offset: 300 * index, index }
+      )}
     />
   );
 };
@@ -64,6 +67,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#841584',
     borderRadius: 10,
+    height: 280,
   },
   name: {
     fontSize: 24,
