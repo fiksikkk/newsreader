@@ -10,58 +10,58 @@ import {
 } from 'react-native';
 
 import { Character, Characters, GetPostsVariables } from '../types/types';
-import { FetchMoreFunction } from '@apollo/client/react/hooks/useSuspenseQuery';
+import { FetchMoreFunction, RefetchFunction } from '@apollo/client/react/hooks/useSuspenseQuery';
 
 interface DisplayCardsProps {
   viewCharacter: (id: number) => void;
   data: Characters;
   fetchMore: FetchMoreFunction<Characters, GetPostsVariables>;
   loading: boolean;
+  refetch: RefetchFunction<Characters, GetPostsVariables>;
 }
 
-type ItemProps = {
+interface ItemProps {
   item: Character;
   onPress: (id: number) => void;
 };
 
-const Item = ({ item, onPress }: ItemProps) => (
-  <View testID='card' style={styles.container} key={item.id}>
-    <TouchableOpacity
-      onPress={() => {
-        onPress(item.id);
-      }}>
-      <Image style={styles.image} src={item.image} />
-      <Text numberOfLines={1} style={styles.name}>
-        {item.name}
-      </Text>
-    </TouchableOpacity>
-  </View>
-);
+const DisplayCards = ({ viewCharacter, data, fetchMore, loading, refetch}: DisplayCardsProps) => {
+  const Item = ({ item, onPress }: ItemProps) => (
+    <View testID='card' style={styles.container} key={item.id}>
+      <TouchableOpacity testID='touch'
+        onPress={() => {
+          onPress(item.id);
+        }}>
+        <Image style={styles.image} src={item.image} />
+        <Text numberOfLines={1} style={styles.name}>
+          {item.name}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
 
-const handleOnEndReached = (data: Characters, fetchMore: FetchMoreFunction<Characters, GetPostsVariables> ) => () => {
-
-  if (data.characters.info.next)
-    return fetchMore({
-      variables: {
-        page: data.characters.info.next
-      },
-      updateQuery: onUpdate,
-    })
-}
-
-const onUpdate = (prev: Characters, { fetchMoreResult }: any) => {
-  const results = [
-    ...prev.characters.results,
-    ...fetchMoreResult.characters.results
-  ]
-  const newData = {
-    characters: { ...fetchMoreResult.characters, results }
+  const handleOnEndReached = (data: Characters, fetchMore: FetchMoreFunction<Characters, GetPostsVariables>) => () => {
+    if (data.characters.info.next)
+      return fetchMore({
+        variables: {
+          page: data.characters.info.next
+        },
+        updateQuery: onUpdate,
+      })
   }
 
-  return newData;
-}
+  const onUpdate = (prev: Characters, { fetchMoreResult }: any) => {
+    console.log('onupdate')
+    const results = [
+      ...prev.characters.results,
+      ...fetchMoreResult.characters.results
+    ]
+    const newData = {
+      characters: { ...fetchMoreResult.characters, results }
+    }
+    return newData;
+  }
 
-const DisplayCards = ({ viewCharacter, data, fetchMore, loading }: DisplayCardsProps) => {
   const renderItem = ({ item }: { item: Character }) => {
     return <Item item={item} onPress={() => viewCharacter(item.id)} />;
   };
@@ -77,6 +77,8 @@ const DisplayCards = ({ viewCharacter, data, fetchMore, loading }: DisplayCardsP
       )}
       onEndReached={handleOnEndReached(data, fetchMore)}
       ListFooterComponent={loading ? <Text testID="progress">Loading...</Text> : null}
+      refreshing={loading}
+      onRefresh={refetch}
     />
   );
 };

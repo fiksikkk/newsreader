@@ -17,10 +17,6 @@ export interface Character {
   id: number;
 }
 
-export interface FullCharacter extends Character {
-
-}
-
 interface Info {
   next: number;
   prev: number;

@@ -9,7 +9,7 @@ import { CharacterProps } from '../types/types';
 const CharacterScreen = ({ route }: CharacterProps) => {
   const { loading, error, data } = useQuery(GET_CHARACTER,
     { variables: { id: route.params.userid } });
-  console.log(loading, error, data)
+
   if (loading) {
     return <Text testID='progress'>Loading...</Text>;
   }
