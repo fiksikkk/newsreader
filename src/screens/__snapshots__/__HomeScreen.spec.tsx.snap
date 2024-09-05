@@ -1,0 +1,484 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render HomeScreen should render 5 cards when loading is done 1`] = `
+<RCTSafeAreaView>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "color": "black",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "padding": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "black",
+        }
+      }
+    >
+      Here is 
+      826
+       characters
+    </Text>
+    <Text
+      style={
+        {
+          "color": "black",
+        }
+      }
+    >
+      Displayed: 
+      5
+    </Text>
+  </View>
+  <RCTScrollView
+    ListFooterComponent={null}
+    contentContainerStyle={
+      {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "paddingBottom": 200,
+      }
+    }
+    data={
+      [
+        {
+          "id": "1",
+          "image": "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+          "name": "Rick Sanchez",
+        },
+        {
+          "id": "2",
+          "image": "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+          "name": "Morty Smith",
+        },
+        {
+          "id": "3",
+          "image": "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
+          "name": "Summer Smith",
+        },
+        {
+          "id": "4",
+          "image": "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
+          "name": "Beth Smith",
+        },
+        {
+          "id": "5",
+          "image": "https://rickandmortyapi.com/api/character/avatar/5.jpeg",
+          "name": "Jerry Smith",
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    getItemLayout={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onEndReached={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={0.0001}
+    stickyHeaderIndices={[]}
+    testID="container"
+    viewabilityConfigCallbackPairs={[]}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderColor": "#841584",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "flexDirection": "column",
+              "height": 280,
+              "margin": 10,
+              "padding": 25,
+            }
+          }
+          testID="card"
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Image
+              src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+              style={
+                {
+                  "height": 200,
+                  "width": 200,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                {
+                  "color": "black",
+                  "fontSize": 24,
+                  "width": 200,
+                }
+              }
+            >
+              Rick Sanchez
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderColor": "#841584",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "flexDirection": "column",
+              "height": 280,
+              "margin": 10,
+              "padding": 25,
+            }
+          }
+          testID="card"
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Image
+              src="https://rickandmortyapi.com/api/character/avatar/2.jpeg"
+              style={
+                {
+                  "height": 200,
+                  "width": 200,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                {
+                  "color": "black",
+                  "fontSize": 24,
+                  "width": 200,
+                }
+              }
+            >
+              Morty Smith
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderColor": "#841584",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "flexDirection": "column",
+              "height": 280,
+              "margin": 10,
+              "padding": 25,
+            }
+          }
+          testID="card"
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Image
+              src="https://rickandmortyapi.com/api/character/avatar/3.jpeg"
+              style={
+                {
+                  "height": 200,
+                  "width": 200,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                {
+                  "color": "black",
+                  "fontSize": 24,
+                  "width": 200,
+                }
+              }
+            >
+              Summer Smith
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderColor": "#841584",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "flexDirection": "column",
+              "height": 280,
+              "margin": 10,
+              "padding": 25,
+            }
+          }
+          testID="card"
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Image
+              src="https://rickandmortyapi.com/api/character/avatar/4.jpeg"
+              style={
+                {
+                  "height": 200,
+                  "width": 200,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                {
+                  "color": "black",
+                  "fontSize": 24,
+                  "width": 200,
+                }
+              }
+            >
+              Beth Smith
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderColor": "#841584",
+              "borderRadius": 10,
+              "borderWidth": 2,
+              "flexDirection": "column",
+              "height": 280,
+              "margin": 10,
+              "padding": 25,
+            }
+          }
+          testID="card"
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Image
+              src="https://rickandmortyapi.com/api/character/avatar/5.jpeg"
+              style={
+                {
+                  "height": 200,
+                  "width": 200,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                {
+                  "color": "black",
+                  "fontSize": 24,
+                  "width": 200,
+                }
+              }
+            >
+              Jerry Smith
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</RCTSafeAreaView>
+`;

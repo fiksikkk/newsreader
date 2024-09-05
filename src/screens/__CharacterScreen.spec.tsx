@@ -38,10 +38,10 @@ describe('Should render CharacterScreen', () => {
     });
 });
 
-const mock = (id: number | string) => {
+const mock = (id: number) => {
     return {
         request: {
-            query: GET_CHARACTER(id),
+            query: GET_CHARACTER, variables: { id }
         },
         result: {
             data: {

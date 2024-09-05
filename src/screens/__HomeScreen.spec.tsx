@@ -3,13 +3,13 @@ import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { render, waitFor } from '@testing-library/react-native';
 
-import { GET_POSTS } from '../src/gql/gql';
-import HomeScreen from '../src/screens/HomeScreen';
-import { HomeProps } from '../src/types/types';
+import { GET_POSTS } from '../gql/gql';
+import HomeScreen from './HomeScreen';
+import { HomeProps } from '../types/types';
 
 describe('Should render HomeScreen', () => {
   const navigation = { navigate: jest.fn() } as unknown as HomeProps['navigation'];
-  const route = { route: jest.fn()} as unknown as HomeProps['route'];
+  const route = { route: jest.fn() } as unknown as HomeProps['route'];
 
   it('should render and show progress on loading', () => {
     const utils = render(
@@ -21,7 +21,7 @@ describe('Should render HomeScreen', () => {
     expect(utils.queryByTestId('progress')).toBeTruthy();
   });
 
-  it('should render 20 cards when loading is done', async () => {
+  it('should render 5 cards when loading is done', async () => {
     const utils = render(
       <MockedProvider addTypename={false} mocks={[mock(1)]}>
         <HomeScreen navigation={navigation} route={route} />
@@ -40,7 +40,7 @@ describe('Should render HomeScreen', () => {
 const mock = (page: number) => {
   return {
     request: {
-      query: GET_POSTS(page),
+      query: GET_POSTS, variables: { page },
     },
     result: {
       data: {
