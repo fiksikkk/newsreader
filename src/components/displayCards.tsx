@@ -75,7 +75,6 @@ const DisplayCards = ({ viewCharacter, data, fetchMore, loading }: DisplayCardsP
       getItemLayout={(data, index) => (
         { length: 300, offset: 300 * index, index }
       )}
-      onEndReachedThreshold={0.5}
       onEndReached={handleOnEndReached(data, fetchMore)}
       ListFooterComponent={loading ? <Text testID="progress">Loading...</Text> : null}
     />
