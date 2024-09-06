@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Touchable, Button} from 'react-native';
 
 const Header = ({count, results}: any) => {
   return (
     <View style={styles.header}>
       <Text style={styles.text}>Here is {count} characters</Text>
       <Text style={styles.text}>Displayed: {Object.keys(results).length}</Text>
+      <Button onPress={} title='Add'/>
     </View>
   );
 };
