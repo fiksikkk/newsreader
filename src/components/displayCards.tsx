@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   View,
@@ -11,6 +11,7 @@ import {
 
 import { Character, Characters, GetPostsVariables } from '../types/types';
 import { FetchMoreFunction, RefetchFunction } from '@apollo/client/react/hooks/useSuspenseQuery';
+import { FlatListFooter } from './flatListFooter';
 
 interface DisplayCardsProps {
   viewCharacter: (id: number) => void;
@@ -25,7 +26,9 @@ interface ItemProps {
   onPress: (id: number) => void;
 };
 
-const DisplayCards = ({ viewCharacter, data, fetchMore, loading, refetch}: DisplayCardsProps) => {
+const DisplayCards = ({ viewCharacter, data, fetchMore, loading, refetch }: DisplayCardsProps) => {
+  const [isNextPage, setIsNextPage] = useState(true);
+  
   const Item = ({ item, onPress }: ItemProps) => (
     <View testID='card' style={styles.container} key={item.id}>
       <TouchableOpacity testID='touch'
@@ -48,10 +51,10 @@ const DisplayCards = ({ viewCharacter, data, fetchMore, loading, refetch}: Displ
         },
         updateQuery: onUpdate,
       })
+    else setIsNextPage(false);
   }
 
   const onUpdate = (prev: Characters, { fetchMoreResult }: any) => {
-    console.log('onupdate')
     const results = [
       ...prev.characters.results,
       ...fetchMoreResult.characters.results
@@ -76,7 +79,7 @@ const DisplayCards = ({ viewCharacter, data, fetchMore, loading, refetch}: Displ
         { length: 300, offset: 300 * index, index }
       )}
       onEndReached={handleOnEndReached(data, fetchMore)}
-      ListFooterComponent={loading ? <Text testID="progress">Loading...</Text> : null}
+      ListFooterComponent={FlatListFooter(loading, isNextPage)}
       refreshing={loading}
       onRefresh={refetch}
     />

@@ -8,6 +8,7 @@ import DisplayCards from '../components/displayCards';
 import Header from '../components/header';
 import { GET_POSTS } from '../gql/gql';
 import { Characters, GetPostsVariables, HomeProps } from '../types/types';
+import { Loading, NoData, StatusError } from '../components/status';
 
 const HomeScreen = ({ navigation }: HomeProps) => {
   const [page] = useState(1);
@@ -20,13 +21,13 @@ const HomeScreen = ({ navigation }: HomeProps) => {
     { variables: { page }, notifyOnNetworkStatusChange: true });
 
   if (!data?.characters?.results?.length && loading) {
-    return <Text testID="progress">Loading...</Text>;
+    return Loading();
   }
   if (error) {
-    return <Text testID="error">Error : {error.message}</Text>;
+    return StatusError(error.message);
   }
   if (!data?.characters?.results?.length) {
-    return <Text testID="noData">Sorry, there is no Characters to show  </Text>
+    return NoData();
   }
 
   return (

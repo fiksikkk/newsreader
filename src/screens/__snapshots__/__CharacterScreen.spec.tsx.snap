@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Should render CharacterScreen Shold render and show progress on loading 1`] = `
+<Text
+  testID="progress"
+>
+  Loading...
+</Text>
+`;
+
 exports[`Should render CharacterScreen Should render a cards when loading is done 1`] = `
 <View
   style={
@@ -76,4 +84,21 @@ exports[`Should render CharacterScreen Should render a cards when loading is don
     Genetic experiment
   </Text>
 </View>
+`;
+
+exports[`Should render CharacterScreen shold render and show an error 1`] = `
+<Text
+  testID="error"
+>
+  Error : 
+  Syntax Error: Expected Name, found &lt;EOF&gt;
+</Text>
+`;
+
+exports[`Should render CharacterScreen should render without data 1`] = `
+<Text
+  testID="noData"
+>
+  Sorry, there is no data to show
+</Text>
 `;

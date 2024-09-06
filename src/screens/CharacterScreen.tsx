@@ -5,16 +5,19 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 
 import { GET_CHARACTER } from '../gql/gql';
 import { CharacterProps } from '../types/types';
+import { Loading, NoData, StatusError } from '../components/status';
 
 const CharacterScreen = ({ route }: CharacterProps) => {
   const { loading, error, data } = useQuery(GET_CHARACTER,
     { variables: { id: route.params.userid } });
-
   if (loading) {
-    return <Text testID='progress'>Loading...</Text>;
+    return Loading();
   }
   if (error) {
-    return <Text testID='error'>Error : {error.message}</Text>;
+    return StatusError(error.message);
+  }
+  if (!data?.character) {
+    return NoData();
   }
 
   const { image, name, gender, status, species, type, id } = data.character;

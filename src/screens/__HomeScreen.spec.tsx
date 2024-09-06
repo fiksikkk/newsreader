@@ -29,7 +29,7 @@ describe('Should render HomeScreen', () => {
 
   it('shold render and show an error', async () => {
     const utils = render(
-      <MockedProvider addTypename={false} mocks={[errorMock()]}>
+      <MockedProvider addTypename={false} mocks={[errorMock(1)]}>
         <HomeScreen navigation={navigation} route={route} />
       </MockedProvider>
     );
@@ -67,7 +67,7 @@ describe('Should render HomeScreen', () => {
   });
 
   it('should call navigate after pressing on a card', async () => {
-    const mocks = [mock(1)] 
+    const mocks = [mock(1)]
     const utils = render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <HomeScreen navigation={navigation} route={route} />
@@ -90,13 +90,28 @@ describe('Should render HomeScreen', () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(utils.queryByTestId('progress')).toBeFalsy()
+      expect(utils.queryByTestId('progress')).toBeFalsy();
     });
-    const FlatList = utils.getByTestId('container')
+    const FlatList = utils.getByTestId('container');
     fireEvent(FlatList, 'endReached');
     await waitFor(() => {
-      expect(utils.queryAllByTestId('card').length).toBe(10)
+      expect(utils.queryAllByTestId('card').length).toBe(10);
     })
+    expect(utils.toJSON()).toMatchSnapshot();
+  })
+
+  it('should render last page, call endReached and show noMoreCharacters', async () => {
+    const utils = render(
+      <MockedProvider addTypename={false} mocks={[lastPageMock(1)]}>
+        <HomeScreen navigation={navigation} route={route} />
+      </MockedProvider>
+    );
+    await waitFor(() => {
+      expect(utils.queryByTestId('progress')).toBeFalsy();
+    });
+    const FlatList = utils.getByTestId('container');
+    fireEvent(FlatList, 'endReached');
+    expect(utils.queryByTestId('noMoreCharacters')).toBeTruthy();
     expect(utils.toJSON()).toMatchSnapshot();
   })
 });
@@ -122,7 +137,7 @@ const emptyMock = (page: number) => {
   }
 }
 
-const errorMock = () => {
+const errorMock = (page: number) => {
   return {
     request: {
       query: GET_POSTS, variables: { page: 1 }
@@ -145,6 +160,53 @@ const errorMock = () => {
     }
   }
 
+}
+
+const lastPageMock = (page: number) => {
+  return {
+    request: {
+      query: GET_POSTS, variables: { page },
+    },
+    result: {
+      data: {
+        characters: {
+          info: {
+            count: 826,
+            next: null,
+            prev: 41,
+            pages: 42,
+          },
+          results: [
+            {
+              id: '1',
+              name: 'Rick Sanchez',
+              image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+            },
+            {
+              id: '2',
+              name: 'Morty Smith',
+              image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
+            },
+            {
+              id: '3',
+              name: 'Summer Smith',
+              image: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
+            },
+            {
+              id: '4',
+              name: 'Beth Smith',
+              image: 'https://rickandmortyapi.com/api/character/avatar/4.jpeg',
+            },
+            {
+              id: '5',
+              name: 'Jerry Smith',
+              image: 'https://rickandmortyapi.com/api/character/avatar/5.jpeg',
+            }
+          ],
+        },
+      },
+    },
+  };
 }
 
 const mock = (page: number) => {
