@@ -1,9 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { signUpFormSchema } from '../schemas/CreateNewCharacterSchema';
+import { z } from 'zod';
 
 export type StackParamList = {
   Home: undefined;
   Character: { userid: number | string };
-  CreateNewCharacter: { createCharacter: boolean};
+  CreateNewCharacter: undefined;
 };
 
 export type HomeProps = NativeStackScreenProps<StackParamList, 'Home'>;
@@ -30,3 +32,5 @@ export interface Characters {
 export interface GetPostsVariables {
   page: number
 }
+
+export type SignUpFormSchema = z.infer<typeof signUpFormSchema>;

@@ -17,6 +17,10 @@ const HomeScreen = ({ navigation }: HomeProps) => {
     navigation.navigate('Character', { userid: id });
   };
 
+  const createNewCharacter = () => {
+    navigation.navigate('CreateNewCharacter')
+  }
+
   const { loading, error, data, fetchMore, refetch } = useQuery<Characters, GetPostsVariables>(GET_POSTS,
     { variables: { page }, notifyOnNetworkStatusChange: true });
 
@@ -35,6 +39,7 @@ const HomeScreen = ({ navigation }: HomeProps) => {
       <Header
         count={data.characters.info.count}
         results={data.characters.results}
+        createNewCharacter={createNewCharacter}
       />
 
       <DisplayCards viewCharacter={viewCharacter} data={data} fetchMore={fetchMore} loading={loading} refetch={refetch} />
