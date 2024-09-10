@@ -35,8 +35,6 @@ const CreateNewCharacterScreen = ({route}: CreacteCharacterProps) => {
               field: {onChange, onBlur, value},
               fieldState: {error},
             }) => {
-              //   console.log('error >>', error);
-              console.log('error >>', JSON.stringify(error, null, 2));
               return (
                 <>
                   <TextInput
@@ -47,11 +45,33 @@ const CreateNewCharacterScreen = ({route}: CreacteCharacterProps) => {
                     onChangeText={onChange}
                     //   errorMessage={error?.message}
                   />
-                  {/* {error && ( */}
-                  <Text style={styles.errorMessage}>
-                    Error:{error?.message}
-                  </Text>
-                  {/* )} */}
+                  {error && (
+                    <Text style={styles.errorMessage}>{error?.message}</Text>
+                  )}
+                </>
+              );
+            }}
+          />
+          <Controller
+            control={methods.control}
+            name="status"
+            render={({
+              field: {onChange, onBlur, value},
+              fieldState: {error},
+            }) => {
+              return (
+                <>
+                  {/* <TextInput
+                    style={styles.textInput}
+                    placeholder="Status"
+                    onBlur={onBlur}
+                    value={value}
+                    onChangeText={onChange}
+                    //   errorMessage={error?.message}
+                  />
+                  {error && (
+                    <Text style={styles.errorMessage}>{error?.message}</Text>
+                  )} */}
                 </>
               );
             }}

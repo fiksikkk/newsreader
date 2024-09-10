@@ -21,14 +21,14 @@ export const signUpFormSchema = z.object({
     .min(3, 'Minimum 3 characters')
     .max(20, 'Maximum 20 characters')
     .trim(),
-  /* 
+
   status: z.enum(STATUS_OPTIONS, {
     required_error: FIELD_REQUIRED_STR,
     invalid_type_error: `Invalid status, must be one of the followings: ${GENDER_OPTIONS.join(
       ', ',
     )}`,
   }),
-
+  /*
   species: z
     .string({
       invalid_type_error: 'Species must be a string',
