@@ -8,6 +8,7 @@ interface TextControllerProps {
   methods: UseFormReturn<SignUpFormSchema>;
   name: keyof SignUpFormSchema;
   // options: Readonly<Array<string>>;
+  // options: Array<Readonly<string>>;
   options: any;
 }
 const DropDownController = (props: TextControllerProps) => {

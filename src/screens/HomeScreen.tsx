@@ -1,37 +1,39 @@
 import React from 'react';
-import { useState } from 'react';
+import {useState} from 'react';
 
-import { useQuery } from '@apollo/client';
-import { SafeAreaView, Text } from 'react-native';
+import {useQuery} from '@apollo/client';
+import {SafeAreaView, Text} from 'react-native';
 
 import DisplayCards from '../components/displayCards';
 import Header from '../components/header';
-import { GET_POSTS } from '../gql/gql';
-import { Characters, GetPostsVariables, HomeProps } from '../types/types';
-import { Loading, NoData, StatusError } from '../components/status';
+import {GET_POSTS} from '../gql/gql';
+import {Characters, GetPostsVariables, HomeProps} from '../types/types';
+import {Loading, NoData, StatusError} from '../components/status';
 
-const HomeScreen = ({ navigation }: HomeProps) => {
+const HomeScreen = ({navigation}: HomeProps) => {
   const [page] = useState(1);
 
   const viewCharacter = (id: number) => {
-    navigation.navigate('Character', { userid: id });
+    navigation.navigate('Character', {userid: id});
   };
 
   const createNewCharacter = () => {
-    navigation.navigate('CreateNewCharacter')
-  }
+    navigation.navigate('CreateNewCharacter');
+  };
 
-  const { loading, error, data, fetchMore, refetch } = useQuery<Characters, GetPostsVariables>(GET_POSTS,
-    { variables: { page }, notifyOnNetworkStatusChange: true });
+  const {loading, error, data, fetchMore, refetch} = useQuery<
+    Characters,
+    GetPostsVariables
+  >(GET_POSTS, {variables: {page}, notifyOnNetworkStatusChange: true});
 
   if (!data?.characters?.results?.length && loading) {
-    return Loading();
+    return <Loading />;
   }
   if (error) {
-    return StatusError(error.message);
+    return <StatusError error={error.message} />;
   }
   if (!data?.characters?.results?.length) {
-    return NoData();
+    return <NoData />;
   }
 
   return (
@@ -42,8 +44,13 @@ const HomeScreen = ({ navigation }: HomeProps) => {
         createNewCharacter={createNewCharacter}
       />
 
-      <DisplayCards viewCharacter={viewCharacter} data={data} fetchMore={fetchMore} loading={loading} refetch={refetch} />
-
+      <DisplayCards
+        viewCharacter={viewCharacter}
+        data={data}
+        fetchMore={fetchMore}
+        loading={loading}
+        refetch={refetch}
+      />
     </SafeAreaView>
   );
 };

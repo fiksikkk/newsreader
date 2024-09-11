@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import {
   View,
@@ -9,9 +9,12 @@ import {
   FlatList,
 } from 'react-native';
 
-import { Character, Characters, GetPostsVariables } from '../types/types';
-import { FetchMoreFunction, RefetchFunction } from '@apollo/client/react/hooks/useSuspenseQuery';
-import { FlatListFooter } from './flatListFooter';
+import {Character, Characters, GetPostsVariables} from '../types/types';
+import {
+  FetchMoreFunction,
+  RefetchFunction,
+} from '@apollo/client/react/hooks/useSuspenseQuery';
+import {FlatListFooter} from './flatListFooter';
 
 interface DisplayCardsProps {
   viewCharacter: (id: number) => void;
@@ -24,14 +27,21 @@ interface DisplayCardsProps {
 interface ItemProps {
   item: Character;
   onPress: (id: number) => void;
-};
+}
 
-const DisplayCards = ({ viewCharacter, data, fetchMore, loading, refetch }: DisplayCardsProps) => {
+const DisplayCards = ({
+  viewCharacter,
+  data,
+  fetchMore,
+  loading,
+  refetch,
+}: DisplayCardsProps) => {
   const [isNextPage, setIsNextPage] = useState(true);
-  
-  const Item = ({ item, onPress }: ItemProps) => (
-    <View testID='card' style={styles.container} key={item.id}>
-      <TouchableOpacity testID='touch'
+
+  const Item = ({item, onPress}: ItemProps) => (
+    <View testID="card" style={styles.container} key={item.id}>
+      <TouchableOpacity
+        testID="touch"
         onPress={() => {
           onPress(item.id);
         }}>
@@ -43,29 +53,34 @@ const DisplayCards = ({ viewCharacter, data, fetchMore, loading, refetch }: Disp
     </View>
   );
 
-  const handleOnEndReached = (data: Characters, fetchMore: FetchMoreFunction<Characters, GetPostsVariables>) => () => {
-    if (data.characters.info.next)
-      return fetchMore({
-        variables: {
-          page: data.characters.info.next
-        },
-        updateQuery: onUpdate,
-      })
-    else setIsNextPage(false);
-  }
+  const handleOnEndReached =
+    (
+      data: Characters,
+      fetchMore: FetchMoreFunction<Characters, GetPostsVariables>,
+    ) =>
+    () => {
+      if (data.characters.info.next)
+        return fetchMore({
+          variables: {
+            page: data.characters.info.next,
+          },
+          updateQuery: onUpdate,
+        });
+      setIsNextPage(false);
+    };
 
-  const onUpdate = (prev: Characters, { fetchMoreResult }: any) => {
+  const onUpdate = (prev: Characters, {fetchMoreResult}: any) => {
     const results = [
       ...prev.characters.results,
-      ...fetchMoreResult.characters.results
-    ]
+      ...fetchMoreResult.characters.results,
+    ];
     const newData = {
-      characters: { ...fetchMoreResult.characters, results }
-    }
+      characters: {...fetchMoreResult.characters, results},
+    };
     return newData;
-  }
+  };
 
-  const renderItem = ({ item }: { item: Character }) => {
+  const renderItem = ({item}: {item: Character}) => {
     return <Item item={item} onPress={() => viewCharacter(item.id)} />;
   };
   return (
@@ -75,9 +90,11 @@ const DisplayCards = ({ viewCharacter, data, fetchMore, loading, refetch }: Disp
       data={data.characters.results}
       renderItem={renderItem}
       keyExtractor={item => item.id.toString()}
-      getItemLayout={(data, index) => (
-        { length: 300, offset: 300 * index, index }
-      )}
+      getItemLayout={(data, index) => ({
+        length: 300,
+        offset: 300 * index,
+        index,
+      })}
       onEndReached={handleOnEndReached(data, fetchMore)}
       ListFooterComponent={FlatListFooter(loading, isNextPage)}
       refreshing={loading}
@@ -109,7 +126,7 @@ const styles = StyleSheet.create({
   box: {
     flexDirection: 'column',
     alignItems: 'center',
-    paddingBottom: 200
+    paddingBottom: 200,
   },
 });
 
