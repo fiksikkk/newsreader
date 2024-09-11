@@ -1,22 +1,16 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {signUpFormSchema} from '../schemas/CreateNewCharacterSchema';
-import {z} from 'zod';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { signUpFormSchema } from '../schemas/CreateNewCharacterSchema';
+import { z } from 'zod';
 
 export type StackParamList = {
   Home: undefined;
-  Character: {userid: number | string};
+  Character: { userid: number | string };
   CreateNewCharacter: undefined;
 };
 
 export type HomeProps = NativeStackScreenProps<StackParamList, 'Home'>;
-export type CharacterProps = NativeStackScreenProps<
-  StackParamList,
-  'Character'
->;
-export type CreacteCharacterProps = NativeStackScreenProps<
-  StackParamList,
-  'CreateNewCharacter'
->;
+export type CharacterProps = NativeStackScreenProps<StackParamList,'Character'>;
+export type CreacteCharacterProps = NativeStackScreenProps<StackParamList, 'CreateNewCharacter'>;
 
 export interface Character {
   name: string;
@@ -32,11 +26,11 @@ interface Info {
 }
 
 export interface Characters {
-  characters: {results: Character[]; info: Info};
+  characters: { results: Character[]; info: Info };
 }
 
 export interface GetPostsVariables {
-  page: number;
+  page: number
 }
 
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>;

@@ -1,8 +1,5 @@
 import z from 'zod';
 
-const phoneNumberRegexp = new RegExp(
-  /^[\+]?([0-9][\s]?|[0-9]?)([(][0-9]{3}[)][\s]?|[0-9]{3}[-\s\.]?)[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
-);
 const FIELD_REQUIRED_STR = 'This field is required';
 export const GENDER_OPTIONS = [
   'Male',
@@ -24,11 +21,11 @@ export const signUpFormSchema = z.object({
 
   status: z.enum(STATUS_OPTIONS, {
     required_error: FIELD_REQUIRED_STR,
-    invalid_type_error: `Invalid status, must be one of the followings: ${GENDER_OPTIONS.join(
+    invalid_type_error: `Invalid status, must be one of the followings: ${STATUS_OPTIONS.join(
       ', ',
     )}`,
   }),
-  /*
+
   species: z
     .string({
       invalid_type_error: 'Species must be a string',
@@ -62,15 +59,21 @@ export const signUpFormSchema = z.object({
     .max(100, 'Maximum 100 characters')
     .trim(),
 
-  origin_link: z
+  origin_url: z
     .string({
-      invalid_type_error: 'Origin location link must be a link',
+      invalid_type_error: 'Origin location must be a string',
       required_error: FIELD_REQUIRED_STR,
     })
-    .url('It must be a link')
-    .min(5, 'Minimum 5 characters')
-    .max(100, 'Maximum 100 characters')
-    .trim(),
+    .refine(
+      value =>
+        !value ||
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(\/[\w.-]*)*\/?$/.test(
+          value,
+        ),
+      {
+        message: 'Please provide a valid URL',
+      },
+    ),
 
   location_name: z
     .string({
@@ -81,26 +84,36 @@ export const signUpFormSchema = z.object({
     .max(100, 'Maximum 100 characters')
     .trim(),
 
-  location_link: z
+  location_url: z
     .string({
-      invalid_type_error: 'Current location link must be a link',
+      invalid_type_error: 'Origin location must be a string',
       required_error: FIELD_REQUIRED_STR,
     })
-    .url('It must be a link')
-    .min(5, 'Minimum 5 characters')
-    .max(100, 'Maximum 100 characters')
-    .trim(),
-
+    .refine(
+      value =>
+        !value ||
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(\/[\w.-]*)*\/?$/.test(
+          value,
+        ),
+      {
+        message: 'Please provide a valid URL',
+      },
+    ),
   image: z
     .string({
-      invalid_type_error: 'Image link must be a link',
+      invalid_type_error: 'Origin location must be a string',
       required_error: FIELD_REQUIRED_STR,
     })
-    .url('It must be a link')
-    .min(5, 'Minimum 5 characters')
-    .max(100, 'Maximum 100 characters')
-    .trim(),
-    */
+    .refine(
+      value =>
+        !value ||
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(\/[\w.-]*)*\/?$/.test(
+          value,
+        ),
+      {
+        message: 'Please provide a valid URL',
+      },
+    ),
 });
 
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>;

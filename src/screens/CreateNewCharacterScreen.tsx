@@ -1,17 +1,17 @@
 import React from 'react';
-import {
-  Alert,
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Alert, Button, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {CreacteCharacterProps, SignUpFormSchema} from '../types/types';
-import {Controller, FormProvider, useForm} from 'react-hook-form';
+import {FormProvider, useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {signUpFormSchema} from '../schemas/CreateNewCharacterSchema';
+import {
+  GENDER_OPTIONS,
+  signUpFormSchema,
+  STATUS_OPTIONS,
+} from '../schemas/CreateNewCharacterSchema';
+import {TextController} from '../components/textController';
+import DropDownController from '../components/dropDownController';
+import {useMutation} from '@apollo/client';
+import {ADD_CHARACTER} from '../gql/gql';
 
 const CreateNewCharacterScreen = ({route}: CreacteCharacterProps) => {
   const methods = useForm<SignUpFormSchema>({
@@ -19,80 +19,73 @@ const CreateNewCharacterScreen = ({route}: CreacteCharacterProps) => {
     mode: 'onBlur',
   });
 
-  //   const onSubmit = data => {
-  //     Alert.alert('Successful', JSON.stringify(data));
-  //   };
+  const [addCharacter] = useMutation(ADD_CHARACTER);
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}> Create New Character Form</Text>
       <View style={styles.view}>
         <FormProvider {...methods}>
-          <Controller
-            control={methods.control}
-            name="name"
-            render={({
-              field: {onChange, onBlur, value},
-              fieldState: {error},
-            }) => {
-              return (
-                <>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder="Name"
-                    onBlur={onBlur}
-                    value={value}
-                    onChangeText={onChange}
-                    //   errorMessage={error?.message}
-                  />
-                  {error && (
-                    <Text style={styles.errorMessage}>{error?.message}</Text>
-                  )}
-                </>
-              );
-            }}
-          />
-          <Controller
-            control={methods.control}
+          <TextController methods={methods} name="name" />
+
+          <View style={styles.spacing} />
+
+          <DropDownController
+            methods={methods}
             name="status"
-            render={({
-              field: {onChange, onBlur, value},
-              fieldState: {error},
-            }) => {
-              return (
-                <>
-                  {/* <TextInput
-                    style={styles.textInput}
-                    placeholder="Status"
-                    onBlur={onBlur}
-                    value={value}
-                    onChangeText={onChange}
-                    //   errorMessage={error?.message}
-                  />
-                  {error && (
-                    <Text style={styles.errorMessage}>{error?.message}</Text>
-                  )} */}
-                </>
-              );
-            }}
+            options={STATUS_OPTIONS}
           />
+
+          <View style={styles.spacing} />
+
+          <TextController methods={methods} name="species" />
+          <View style={styles.spacing} />
+
+          <TextController methods={methods} name="type" />
+          <View style={styles.spacing} />
+
+          <DropDownController
+            methods={methods}
+            name="gender"
+            options={GENDER_OPTIONS}
+          />
+          <View style={styles.spacing} />
+
+          <TextController methods={methods} name="origin_name" />
+          <View style={styles.spacing} />
+
+          <TextController methods={methods} name="origin_url" />
+          <View style={styles.spacing} />
+
+          <TextController methods={methods} name="location_name" />
+          <View style={styles.spacing} />
+
+          <TextController methods={methods} name="location_url" />
+          <View style={styles.spacing} />
+
+          <TextController methods={methods} name="image" />
+          <View style={styles.spacing} />
+
+          <View style={styles.spacing} />
+          <View style={styles.spacing} />
           <Button
             onPress={() => {
               const currFormValues = methods.getValues();
-              // https://zod.dev/?id=safeparse
               const result = signUpFormSchema.safeParse(currFormValues);
 
               if (!result.success) {
-                const formattedError = result.error.format();
-                console.log(JSON.stringify(formattedError));
-                Alert.alert(JSON.stringify(formattedError));
-              } else {
-                Alert.alert('Validation is successful with zod');
+                methods.trigger();
+                return;
               }
+              Alert.alert('Congratulations! New Character was created!');
+
+              addCharacter({variables: result.data});
             }}
-            title="Submit Form"
+            title="Create character"
             color={'#007BFF'}
           />
+          <View style={styles.spacing} />
+          <View style={styles.spacing} />
         </FormProvider>
       </View>
     </ScrollView>
@@ -120,10 +113,8 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
   },
-  errorMessage: {
-    fontSize: 18,
-    color: 'red',
-    padding: 10,
+  spacing: {
+    marginBottom: 24,
   },
 });
 
