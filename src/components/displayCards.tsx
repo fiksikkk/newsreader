@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 import {
   View,
@@ -37,6 +37,9 @@ const DisplayCards = ({
   refetch,
 }: DisplayCardsProps) => {
   const [isNextPage, setIsNextPage] = useState(true);
+  const flatListRef = useRef<FlatList>(null);
+  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
+  const CONTENT_OFFSET_THRESHOLD = 400;
 
   const Item = ({item, onPress}: ItemProps) => (
     <View testID="card" style={styles.container} key={item.id}>
@@ -87,22 +90,37 @@ const DisplayCards = ({
     return <Item item={item} onPress={() => viewCharacter(item.id)} />;
   };
   return (
-    <FlatList
-      contentContainerStyle={styles.box}
-      testID="container"
-      data={data.characters.results}
-      renderItem={renderItem}
-      keyExtractor={item => item.id.toString()}
-      getItemLayout={(data, index) => ({
-        length: 300,
-        offset: 300 * index,
-        index,
-      })}
-      onEndReached={handleOnEndReached(fetchMore)}
-      ListFooterComponent={FlatListFooter(loading, isNextPage)}
-      refreshing={loading}
-      onRefresh={refetch}
-    />
+    <>
+      <FlatList
+        ref={flatListRef}
+        contentContainerStyle={styles.box}
+        testID="container"
+        data={data.characters.results}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+        getItemLayout={(data, index) => ({
+          length: 300,
+          offset: 300 * index,
+          index,
+        })}
+        onEndReached={handleOnEndReached(fetchMore)}
+        ListFooterComponent={FlatListFooter(loading, isNextPage)}
+        refreshing={loading}
+        onRefresh={refetch}
+        onScroll={event => {
+          setContentVerticalOffset(event.nativeEvent.contentOffset.y);
+        }}
+      />
+      {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
+        <TouchableOpacity
+          style={styles.scrollTopButton}
+          onPress={() => {
+            flatListRef.current?.scrollToIndex({index: 0, animated: true});
+          }}>
+          <Image source={require('../images/arrow-up.png')} />
+        </TouchableOpacity>
+      )}
+    </>
   );
 };
 
@@ -130,6 +148,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     paddingBottom: 200,
+  },
+  scrollTopButton: {
+    position: 'absolute',
+    bottom: 80,
+    left: 10,
+    borderRadius: 50,
   },
 });
 
