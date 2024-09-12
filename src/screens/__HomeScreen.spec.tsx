@@ -1,13 +1,14 @@
 import React from 'react';
 import {faker} from '@faker-js/faker';
 
-import {MockedProvider} from '@apollo/client/testing';
+import {MockedProvider, MockedResponse} from '@apollo/client/testing';
 import {fireEvent, render, waitFor} from '@testing-library/react-native';
 
 import {GET_POSTS} from '../gql/gql';
 import HomeScreen from './HomeScreen';
 import {HomeProps} from '../types/types';
 import {createUsers} from '../test/testUtils';
+import {GraphQLError} from 'graphql';
 
 faker.seed(1);
 
@@ -158,7 +159,7 @@ const errorMock = (page: number) => {
           extensions: {
             code: 'GRAPHQL_PARSE_FAILED',
           },
-        },
+        } as unknown as GraphQLError,
       ],
     },
   };

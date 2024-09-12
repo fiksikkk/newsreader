@@ -5,6 +5,7 @@ import {render, waitFor} from '@testing-library/react-native';
 import {GET_CHARACTER} from '../gql/gql';
 import CharacterScreen from './CharacterScreen';
 import {CharacterProps} from '../types/types';
+import {GraphQLError} from 'graphql';
 
 describe('Should render CharacterScreen', () => {
   const navigation = {
@@ -118,7 +119,7 @@ const errorMock = (id: number) => {
           extensions: {
             code: 'GRAPHQL_PARSE_FAILED',
           },
-        },
+        } as unknown as GraphQLError,
       ],
     },
   };
