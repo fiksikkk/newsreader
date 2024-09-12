@@ -7,6 +7,9 @@ import {fireEvent, render, waitFor} from '@testing-library/react-native';
 import {GET_POSTS} from '../gql/gql';
 import HomeScreen from './HomeScreen';
 import {HomeProps} from '../types/types';
+import {createUsers} from '../test/testUtils';
+
+faker.seed(1);
 
 describe('Should render HomeScreen', () => {
   const navigation = {
@@ -161,20 +164,6 @@ const errorMock = (page: number) => {
   };
 };
 
-// const createUsers = (amount: number = 5) => {
-//   let result = [];
-//   for (let i = 0; i < amount; i++) {
-//     result.push({
-//       id: faker.string.uuid(),
-//       name: faker.internet.userName(),
-//       image: faker.image.url(),
-//     });
-//   }
-//   return result;
-// };
-
-// console.log(createUsers());
-
 const lastPageMock = (page: number) => {
   return {
     request: {
@@ -190,33 +179,7 @@ const lastPageMock = (page: number) => {
             prev: 41,
             pages: 42,
           },
-          results: [
-            {
-              id: '1',
-              name: 'Rick Sanchez',
-              image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-            },
-            {
-              id: '2',
-              name: 'Morty Smith',
-              image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
-            },
-            {
-              id: '3',
-              name: 'Summer Smith',
-              image: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
-            },
-            {
-              id: '4',
-              name: 'Beth Smith',
-              image: 'https://rickandmortyapi.com/api/character/avatar/4.jpeg',
-            },
-            {
-              id: '5',
-              name: 'Jerry Smith',
-              image: 'https://rickandmortyapi.com/api/character/avatar/5.jpeg',
-            },
-          ],
+          results: createUsers(),
         },
       },
     },
@@ -224,8 +187,6 @@ const lastPageMock = (page: number) => {
 };
 
 const mock = (page: number) => {
-  const itemsPerPage = 5;
-  const modificator = page == 1 ? 0 : (page - 1) * itemsPerPage;
   return {
     request: {
       query: GET_POSTS,
@@ -240,33 +201,7 @@ const mock = (page: number) => {
             prev: null,
             pages: 42,
           },
-          results: [
-            {
-              id: (1 + modificator).toString(),
-              name: 'Rick Sanchez',
-              image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-            },
-            {
-              id: (2 + modificator).toString(),
-              name: 'Morty Smith',
-              image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
-            },
-            {
-              id: (3 + modificator).toString(),
-              name: 'Summer Smith',
-              image: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
-            },
-            {
-              id: (4 + modificator).toString(),
-              name: 'Beth Smith',
-              image: 'https://rickandmortyapi.com/api/character/avatar/4.jpeg',
-            },
-            {
-              id: (5 + modificator).toString(),
-              name: 'Jerry Smith',
-              image: 'https://rickandmortyapi.com/api/character/avatar/5.jpeg',
-            },
-          ],
+          results: createUsers(),
         },
       },
     },

@@ -53,12 +53,26 @@ const DisplayCards = ({
     </View>
   );
 
+  const onUpdate = (
+    prev: Characters,
+    options: {
+      fetchMoreResult: Characters;
+      variables: GetPostsVariables;
+    },
+  ) => {
+    const results = [
+      ...prev.characters.results,
+      ...options.fetchMoreResult.characters.results,
+    ];
+    const newData = {
+      characters: {...options.fetchMoreResult.characters, results},
+    };
+    return newData;
+  };
+
   const handleOnEndReached =
-    (
-      data: Characters,
-      fetchMore: FetchMoreFunction<Characters, GetPostsVariables>,
-    ) =>
-    () => {
+    (fetchMore: FetchMoreFunction<Characters, GetPostsVariables>) => () => {
+      if (loading) return;
       if (data.characters.info.next)
         return fetchMore({
           variables: {
@@ -68,17 +82,6 @@ const DisplayCards = ({
         });
       setIsNextPage(false);
     };
-
-  const onUpdate = (prev: Characters, {fetchMoreResult}: any) => {
-    const results = [
-      ...prev.characters.results,
-      ...fetchMoreResult.characters.results,
-    ];
-    const newData = {
-      characters: {...fetchMoreResult.characters, results},
-    };
-    return newData;
-  };
 
   const renderItem = ({item}: {item: Character}) => {
     return <Item item={item} onPress={() => viewCharacter(item.id)} />;
@@ -95,7 +98,7 @@ const DisplayCards = ({
         offset: 300 * index,
         index,
       })}
-      onEndReached={handleOnEndReached(data, fetchMore)}
+      onEndReached={handleOnEndReached(fetchMore)}
       ListFooterComponent={FlatListFooter(loading, isNextPage)}
       refreshing={loading}
       onRefresh={refetch}
